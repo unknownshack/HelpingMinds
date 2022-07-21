@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuFragment"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/green">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rsp_40"
+        android:background="@color/white"
+        android:text="Home Page"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/rdp_5"
+        android:layout_marginBottom="@dimen/rdp_5"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rsp_40"
+        android:background="@color/white"
+        android:text="Calendar"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/rdp_5"
+        android:layout_marginBottom="@dimen/rdp_5"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rsp_40"
+        android:background="@color/white"
+        android:text="Important Events"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/rdp_5"
+        android:layout_marginBottom="@dimen/rdp_5"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rsp_40"
+        android:background="@color/white"
+        android:text="Wellness Activities"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/rdp_5"
+        android:layout_marginBottom="@dimen/rdp_5"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rsp_40"
+        android:background="@color/white"
+        android:text="Questions About The App"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/rdp_5"
+        android:layout_marginBottom="@dimen/rdp_5"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rsp_40"
+        android:background="@color/white"
+        android:text="Manage Reminders"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/rdp_5"
+        android:layout_marginBottom="@dimen/rdp_5"
+        />
+    <Button
+        android:layout_width="@dimen/rdp_120"
+        android:layout_height="@dimen/rdp_40"
+        android:background="@drawable/button"
+        android:text="Sign Out"
+        android:layout_marginTop="@dimen/rsp_20"
+        />
+
+</LinearLayout>

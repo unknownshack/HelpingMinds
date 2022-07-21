@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignInFragment"
+    android:background="@color/green"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignIn"
+        android:textColor="@color/black"
+        android:textSize="@dimen/rsp_40"
+        android:layout_marginTop="@dimen/rdp_60"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:layout_height="@dimen/rdp_40"
+        android:layout_width="@dimen/rdp_280"
+        android:background="@drawable/edittext"
+        android:layout_marginTop="@dimen/rdp_60"
+        android:hint="Email Adress"
+        android:paddingStart="@dimen/rdp_20"
+        />
+
+    <EditText
+        android:layout_height="@dimen/rdp_40"
+        android:layout_width="@dimen/rdp_280"
+        android:background="@drawable/edittext"
+        android:layout_marginTop="@dimen/rdp_20"
+        android:hint="Password"
+        android:paddingStart="@dimen/rdp_20"
+        />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="@dimen/rdp_120"
+        android:layout_height="@dimen/rdp_40"
+        android:layout_marginTop="@dimen/rdp_80"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:background="@drawable/button"/>
+
+</LinearLayout>

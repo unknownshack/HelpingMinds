@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminLoginFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/green">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Login"
+        android:textColor="@color/black"
+        android:textSize="@dimen/rsp_40"
+        android:layout_marginTop="@dimen/rdp_60"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/rdp_40"
+        >
+        <CheckBox android:id="@+id/general"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/rsp_20"
+            android:text="General"
+            android:buttonTint="@color/white"
+            android:paddingEnd="@dimen/rdp_40"
+            />
+
+        <CheckBox android:id="@+id/admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_20"
+            android:text="Admin"
+            android:textStyle="bold"
+            android:buttonTint="@color/white"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:layout_height="@dimen/rdp_40"
+        android:layout_width="@dimen/rdp_280"
+        android:background="@drawable/edittext"
+        android:layout_marginTop="@dimen/rdp_40"
+        android:hint="Email Adress"
+        android:paddingStart="@dimen/rdp_20"
+        />
+
+    <EditText
+        android:layout_height="@dimen/rdp_40"
+        android:layout_width="@dimen/rdp_280"
+        android:background="@drawable/edittext"
+        android:layout_marginTop="@dimen/rdp_20"
+        android:hint="Password"
+        android:paddingStart="@dimen/rdp_20"
+        />
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="@dimen/rdp_120"
+        android:layout_height="@dimen/rdp_40"
+        android:layout_marginTop="@dimen/rdp_60"
+        android:text="Create Login"
+        android:textColor="@color/white"
+        android:background="@drawable/button"/>
+
+</LinearLayout>

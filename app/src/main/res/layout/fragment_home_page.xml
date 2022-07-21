@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".HomePage"
+android:background="@color/green"
+android:gravity="center_horizontal"
+android:id="@+id/body"
+    >
+
+<TextView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:text="Welcome\nto\nHelping Minds"
+    android:textSize="@dimen/rsp_40"
+    android:layout_marginTop="@dimen/rdp_60"
+    android:layout_marginBottom="@dimen/rdp_20"
+    android:gravity="center"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    />
+
+<Button
+    android:id="@+id/signin"
+    android:layout_width="@dimen/rdp_120"
+    android:layout_height="@dimen/rdp_40"
+    android:layout_marginTop="@dimen/rdp_80"
+    android:text="Sign In"
+    android:textColor="@color/white"
+    android:background="@drawable/button"/>
+
+<Button
+    android:id="@+id/adminlogin"
+    android:layout_width="@dimen/rdp_120"
+    android:layout_height="@dimen/rdp_40"
+    android:background="@drawable/button"
+    android:layout_marginTop="@dimen/rdp_10"
+    android:textColor="@color/white"
+    android:text="Admin Login"/>
+
+</LinearLayout>
