@@ -1,16 +1,23 @@
-package com.example.helpingminds
+package com.example.helpingminds.Fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import com.example.helpingminds.Callback.CallBackListener
+import com.example.helpingminds.R
 
 class SignInFragment : Fragment() {
     private lateinit var signInView: View
-    private lateinit var cb:CallBackListener
+    private lateinit var cb: CallBackListener
     private lateinit var signInButton:Button
+
+    private lateinit var email: EditText
+    private lateinit var password: EditText
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,9 +32,11 @@ class SignInFragment : Fragment() {
         if(activity is CallBackListener){
             cb = activity as CallBackListener
         }
+        email = signInView.findViewById(R.id.email)
+        password = signInView.findViewById(R.id.password)
         signInButton = signInView.findViewById(R.id.login)
         signInButton.setOnClickListener {
-            cb.SigningIn()
+            cb.SigningIn(email.text.toString(), password.text.toString())
         }
     }
 }

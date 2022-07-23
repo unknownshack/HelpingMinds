@@ -246,6 +246,7 @@
 	<dimen name="rdp_249">217.9dp</dimen>
 	<dimen name="rdp_31">27.1dp</dimen>
 	<dimen name="rdp_30">26.2dp</dimen>
+	<dimen name="fab_margin">14dp</dimen>
 	<dimen name="rdp_29">25.4dp</dimen>
 	<dimen name="rdp_26">22.8dp</dimen>
 	<dimen name="rdp_25">21.9dp</dimen>
