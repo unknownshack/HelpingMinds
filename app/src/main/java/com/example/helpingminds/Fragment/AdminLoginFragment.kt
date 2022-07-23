@@ -1,10 +1,11 @@
-package com.example.helpingminds
+package com.example.helpingminds.Fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.helpingminds.R
 
 class AdminLoginFragment : Fragment() {
     private lateinit var adminLoginView:View
