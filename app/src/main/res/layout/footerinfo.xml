@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/rdp_16">
 
     <TextView
         android:layout_gravity="bottom"
-        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/rsp_16"
-        android:paddingLeft="@dimen/rdp_16"
-        android:paddingBottom="@dimen/rdp_10"
-        android:paddingTop="@dimen/rdp_10"
-        android:lineHeight="@dimen/rdp_22"
-        android:text=" HelpingMinds Employee Assistance Program\n Ph: 1300 66 77 00\n www.accesswellbeingservices.com.au"
+        android:text="HelpingMinds Employee Assistance Program."
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/rsp_16"
+        android:text="Ph: 1300 66 77 00."
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/rsp_16"
+        android:text="www.accesswellbeingservices.com.au"
         android:textColor="@color/black"
         />
 </LinearLayout>
