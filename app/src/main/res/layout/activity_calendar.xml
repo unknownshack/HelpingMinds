@@ -38,13 +38,37 @@
         android:id="@+id/eventTitleId"
         android:text="Events For March"
         android:gravity="center_horizontal"
-        android:textSize="@dimen/rsp_15"
+        android:textSize="@dimen/rsp_20"
         android:padding="@dimen/rdp_10"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/calendarView"
         />
+
+    <LinearLayout
+        android:id="@+id/no_event"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/eventTitleId"
+        android:gravity="center">
+
+        <ImageView android:layout_width="@dimen/rdp_120"
+            android:layout_height="@dimen/rdp_120"
+            android:src="@drawable/no_event"
+            android:layout_marginTop="@dimen/rdp_20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No event available"
+            android:textColor="@color/purple_200"
+            android:textStyle="bold"
+            android:textSize="@dimen/rsp_15"
+            />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"

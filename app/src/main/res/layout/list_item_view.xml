@@ -2,27 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/rdp_5"
+    android:layout_marginBottom="@dimen/rdp_5">
 
-    <TextView
-        android:id="@+id/listText"
-        android:layout_width="@dimen/rdp_299"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:padding="@dimen/rdp_20"
-        android:text="hey how are you"
-        android:textColor="@color/black"
-        android:textSize="@dimen/rsp_15" />
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/listText"
+            android:layout_width="@dimen/rdp_299"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingTop="@dimen/rdp_5"
+            android:paddingBottom="@dimen/rdp_5"
+            android:paddingStart="@dimen/rdp_16"
+            android:text="hey how are you"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/rdp_50"
-        android:layout_alignBottom="@+id/listText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/rdp_10"
-        android:text="Set"
-        android:textSize="@dimen/rsp_15" />
+        <Button
+            android:id="@+id/setButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/rdp_40"
+            android:layout_marginStart="@dimen/rdp_10"
+            android:text="Set"
+            android:textSize="@dimen/rsp_15"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rdp_1"
+        android:background="#c0c0c0"
+        android:layout_marginTop="@dimen/rdp_5"/>
 
 </LinearLayout>

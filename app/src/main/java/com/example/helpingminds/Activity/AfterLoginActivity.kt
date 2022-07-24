@@ -15,8 +15,15 @@ class AfterLoginActivity : AppCompatActivity(), AfterLoginActivityCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_after_login)
+
+        val fragmentToStart = intent.extras?.getString("fragmentToStart")
         val transaction = manager.beginTransaction()
-        transaction.replace(R.id.body, MenuFragment())
+        if(fragmentToStart != null && fragmentToStart == "SetReminder"){
+            transaction.replace(R.id.body, SetReminderFragment())
+        }
+        else{
+            transaction.replace(R.id.body, MenuFragment())
+        }
         transaction.commit()
     }
 
