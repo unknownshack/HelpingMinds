@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SetReminderFragment">
+    tools:context=".Fragment.SetReminderFragment"
+    android:background="@color/green">
 
     <TextView
         android:id="@+id/title"
@@ -15,9 +16,11 @@
         android:gravity="center"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/rdp_20"
          />
 
     <LinearLayout
+        android:id="@+id/datelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/title"
@@ -25,7 +28,7 @@
         >
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/rdp_100"
         android:layout_height="wrap_content"
         android:text="Date Selected"
         android:textColor="@color/black"
@@ -33,39 +36,159 @@
         android:layout_marginStart="@dimen/rsp_40"
         />
 
-    <EditText
-        android:editable="false"
-        android:layout_width="@dimen/rdp_200"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/rdp_30"
-        />
+        <EditText
+            android:id="@+id/dateEditText"
+            android:editable="false"
+            android:focusable="false"
+            android:layout_width="@dimen/rdp_200"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_30"
+            />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/timelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_marginTop="@dimen/rdp_30"
+        app:layout_constraintTop_toBottomOf="@id/datelayout"
+        android:layout_marginTop="@dimen/rdp_15"
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/rdp_100"
             android:layout_height="wrap_content"
-            android:text="Date Selected"
+            android:text="Time"
             android:textColor="@color/black"
             android:textSize="@dimen/rsp_15"
             android:layout_marginStart="@dimen/rsp_40"
             />
 
         <EditText
+            android:id="@+id/timeEditText"
+            android:focusable="false"
             android:editable="false"
             android:layout_width="@dimen/rdp_200"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/rdp_30"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/timelayout"
+        android:layout_marginTop="@dimen/rdp_15"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <EditText
+            android:focusable="false"
+            android:id="@+id/noteEditText"
+            android:editable="false"
+            android:layout_width="@dimen/rdp_200"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:layout_marginStart="@dimen/rdp_30"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/repeatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notesLayout"
+        android:layout_marginTop="@dimen/rdp_15"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Repeat"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <Spinner
+            android:id="@+id/repeatSpinner"
+            android:layout_width="@dimen/rdp_150"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_marginStart="@dimen/rdp_30"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/priorityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/repeatLayout"
+        android:layout_marginTop="@dimen/rdp_15"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Priority"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <Spinner
+            android:id="@+id/prioritySpinner"
+            android:layout_width="@dimen/rdp_150"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_marginStart="@dimen/rdp_30"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/priorityLayout"
+        android:layout_marginTop="@dimen/rdp_50"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginEnd="@dimen/rdp_20"
+            />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/rdp_20"
             />
     </LinearLayout>
 

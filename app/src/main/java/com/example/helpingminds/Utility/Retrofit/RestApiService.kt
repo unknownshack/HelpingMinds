@@ -1,6 +1,7 @@
 package com.example.helpingminds.Utility.Retrofit
 
 import com.example.helpingminds.Model.Event
+import com.example.helpingminds.Model.Reminder
 import com.example.helpingminds.Model.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,6 +73,52 @@ class RestApiService {
                     onResult(null)
                 }
 
+            }
+        )
+    }
+
+    fun checkIfReminderExist(id: Int, onResult: (ArrayList<Reminder>?) -> Unit){
+        retrofit.checkIfReminderExist(id).enqueue(
+            object : Callback<ArrayList<Reminder>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Reminder>>?,
+                    response: Response<ArrayList<Reminder>>?
+                ) {
+                    onResult(response?.body())
+                }
+
+                override fun onFailure(call: Call<ArrayList<Reminder>>?, t: Throwable?) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun saveReminder(reminder: Reminder, onResult: (Reminder?) -> Unit){
+        retrofit.saveReminder(reminder).enqueue(
+            object : Callback<Reminder> {
+                override fun onResponse(call: Call<Reminder>?, response: Response<Reminder>?) {
+                    onResult(response?.body())
+                }
+
+                override fun onFailure(call: Call<Reminder>?, t: Throwable?) {
+                    onResult(null)
+                }
+
+            }
+        )
+    }
+
+    fun DeleteReminder(id:Int, onResult: (Boolean?) -> Unit){
+        retrofit.deleteReminder(id).enqueue(
+            object : Callback<Any> {
+                override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
+                    onResult(response?.isSuccessful)
+                }
+
+                override fun onFailure(call: Call<Any>?, t: Throwable?) {
+                    onResult(null)
+                }
             }
         )
     }
