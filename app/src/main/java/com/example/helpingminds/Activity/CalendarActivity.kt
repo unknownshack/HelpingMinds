@@ -11,16 +11,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helpingminds.Activity.AfterLoginActivity
 import com.example.helpingminds.Model.Event
 import com.example.helpingminds.Utility.Retrofit.RestApiService
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class CalendarActivity : AppCompatActivity() {
+
     private lateinit var recyclerView: RecyclerView
     private var recycleViewAdapter: RecycleViewAdapter? = null
     private lateinit var mprogress:ProgressDialog
@@ -59,6 +59,8 @@ class CalendarActivity : AppCompatActivity() {
 
 
     }
+
+
 
     private fun GetEvents(dateString: String){
         var calendarService = RestApiService()
@@ -105,7 +107,7 @@ class RecycleViewAdapter(private val lst: ArrayList<Event>,  context: Context) :
 
     override fun onBindViewHolder(holder: AdapterHolder, position: Int) {
         val holder = holder as AdapterHolder
-        holder.setUpViews(lst[position].eventName)
+        holder.setUpViews(lst[position])
         holder.setUpListener(activityContext)
     }
 
@@ -115,10 +117,12 @@ class AdapterHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private var view: View = itemView
     private val listText: TextView = itemView.findViewById(R.id.listText)
     private val setButton:Button = itemView.findViewById(R.id.setButton)
+    private lateinit var event:Event
 
 
-    fun setUpViews(text:String){
-        listText.text = text
+    fun setUpViews(evnt:Event){
+        listText.text = evnt.eventName
+        event = evnt
     }
 
     fun setUpListener(context: Context){
@@ -129,6 +133,7 @@ class AdapterHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         setButton.setOnClickListener {
             var intent = Intent(context, AfterLoginActivity::class.java)
             intent.putExtra("fragmentToStart", "SetReminder")
+            intent.putExtra("event",event)
             context.startActivity(intent)
         }
     }
