@@ -71,7 +71,7 @@
         android:layout_width="@dimen/rdp_120"
         android:layout_height="@dimen/rdp_40"
         android:layout_marginTop="@dimen/rdp_60"
-        android:text="Create Login"
+        android:text="Login"
         android:textColor="@color/white"
         android:background="@drawable/button"/>
 

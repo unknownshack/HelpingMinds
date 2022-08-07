@@ -9,10 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.helpingminds.*
 import com.example.helpingminds.Callback.CallBackListener
-import com.example.helpingminds.Fragment.AdminLoginFragment
-import com.example.helpingminds.Fragment.AdminPageFragment
-import com.example.helpingminds.Fragment.HomePage
-import com.example.helpingminds.Fragment.SignInFragment
+import com.example.helpingminds.Fragment.*
 import com.example.helpingminds.Model.User
 import com.example.helpingminds.Utility.Retrofit.RestApiService
 import com.example.helpingminds.Utility.Session.SessionManagement
@@ -88,21 +85,37 @@ class MainActivity : AppCompatActivity(), CallBackListener {
     }
 
     override fun createAdminLoginPage(username: String, password: String) {
-        MoveToAdminLoginFragment()
-        /*progress.show()
+        progress.show()
         val loginApiService = RestApiService()
         val user = User(-1, username, password)
 
         loginApiService.checkAdminLogin(user){
-            if(it != null && it != -1){
-                progress.dismiss()
-                MoveToAdminLoginFragment()
-            }else{
-                progress.dismiss()
+            if(it != true){
                 Toast.makeText(this, "Admin Login Failed", Toast.LENGTH_SHORT).show()
+            }else{
+                MoveToMenu()
             }
-        }*/
+            progress.dismiss()
+        }
 
+    }
+
+    override fun moveToAdminMenu() {
+
+    }
+
+    override fun createEvent() {
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.body, CreateEventFragment())
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    override fun createUser() {
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.body, AdminPageFragment())
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     private fun MoveToAfterLoginActivity(){
@@ -112,9 +125,9 @@ class MainActivity : AppCompatActivity(), CallBackListener {
         finish()
     }
 
-    private fun MoveToAdminLoginFragment(){
+    private fun MoveToMenu(){
         val transaction = manager.beginTransaction()
-        transaction.replace(R.id.body, AdminPageFragment())
+        transaction.replace(R.id.body, ActionFragment())
         transaction.addToBackStack(null)
         transaction.commit()
     }

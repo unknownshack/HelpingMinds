@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.helpingminds.Activity.AfterLoginActivity
 import com.example.helpingminds.Model.Event
 import com.example.helpingminds.Utility.Retrofit.RestApiService
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -28,6 +29,8 @@ class CalendarActivity : AppCompatActivity() {
     private lateinit var noEventView: LinearLayout
 
     private lateinit var calendarView: CalendarView
+    private lateinit var today:Calendar
+    private var selectedDate: Calendar = Calendar.getInstance()
 
     private var eventList: ArrayList<Event> = ArrayList<Event>()
 
@@ -47,20 +50,23 @@ class CalendarActivity : AppCompatActivity() {
 
         calendarView.setOnDateChangeListener { view, year, month, day ->
             var dateString = "${month+1}-$day-$year"
+
+            val sdf = SimpleDateFormat("MM-dd-yyyy")
+            val date: Date = sdf.parse(dateString)
+            selectedDate.time = date
+
             GetEvents(dateString)
         }
-        recycleViewAdapter = RecycleViewAdapter(eventList, this)
+        recycleViewAdapter = RecycleViewAdapter(eventList, this, selectedDate)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = recycleViewAdapter
 
-        var today = Calendar.getInstance()
+        today = Calendar.getInstance()
         var todayString = "${today.get(Calendar.MONTH)+1}-${today.get(Calendar.DAY_OF_MONTH)}-${today.get(Calendar.YEAR)}"
         GetEvents(todayString)
 
 
     }
-
-
 
     private fun GetEvents(dateString: String){
         var calendarService = RestApiService()
@@ -94,8 +100,9 @@ class CalendarActivity : AppCompatActivity() {
     }
 }
 
-class RecycleViewAdapter(private val lst: ArrayList<Event>,  context: Context) : RecyclerView.Adapter<AdapterHolder>(){
+class RecycleViewAdapter(private val lst: ArrayList<Event>,  context: Context, selectedDate: Calendar) : RecyclerView.Adapter<AdapterHolder>(){
     val activityContext = context
+    val selDate = selectedDate
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_view, parent, false)
         return AdapterHolder(inflatedView)
@@ -108,7 +115,7 @@ class RecycleViewAdapter(private val lst: ArrayList<Event>,  context: Context) :
     override fun onBindViewHolder(holder: AdapterHolder, position: Int) {
         val holder = holder as AdapterHolder
         holder.setUpViews(lst[position])
-        holder.setUpListener(activityContext)
+        holder.setUpListener(activityContext, selDate)
     }
 
 }
@@ -125,9 +132,25 @@ class AdapterHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         event = evnt
     }
 
-    fun setUpListener(context: Context){
+    private fun compareDate(selectedDate: Calendar):Boolean{
+        var today = Calendar.getInstance()
+        return if(selectedDate.get(Calendar.YEAR) > today.get(Calendar.YEAR)){
+            true
+        }else if(selectedDate.get(Calendar.YEAR) < today.get(Calendar.YEAR)){
+            false
+        } else{
+            selectedDate.get(Calendar.DAY_OF_YEAR) >= today.get(Calendar.DAY_OF_YEAR)
+        }
+    }
+
+    fun setUpListener(context: Context, selectedDate: Calendar){
         view.setOnClickListener {
-            setButton.visibility = View.VISIBLE
+            if(compareDate(selectedDate)){
+                var intent = Intent(context, AfterLoginActivity::class.java)
+                intent.putExtra("fragmentToStart", "SetReminder")
+                intent.putExtra("event",event)
+                context.startActivity(intent)
+            }
         }
 
         setButton.setOnClickListener {

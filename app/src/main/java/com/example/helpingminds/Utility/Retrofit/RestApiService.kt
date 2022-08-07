@@ -25,15 +25,30 @@ class RestApiService {
         )
     }
 
-    fun checkAdminLogin(user:User, onResult:(Int?) -> Unit){
+    fun checkAdminLogin(user:User, onResult:(Boolean?) -> Unit){
         retrofit.AdminLogIn(user).enqueue(
-            object:Callback<Int>{
-                override fun onResponse(call: Call<Int>?, response: Response<Int>?) {
-                    var id = response?.body()
-                    onResult(id)
+            object:Callback<Void>{
+                override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                    onResult(response?.isSuccessful)
                 }
 
-                override fun onFailure(call: Call<Int>?, t: Throwable?) {
+                override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                    onResult(null)
+                }
+
+
+            }
+        )
+    }
+
+    fun createUser(user:User, onResult: (User?) -> Unit){
+        retrofit.CreateUser(user).enqueue(
+            object:Callback<User>{
+                override fun onResponse(call: Call<User>?, response: Response<User>?) {
+                    onResult(response?.body())
+                }
+
+                override fun onFailure(call: Call<User>?, t: Throwable?) {
                     onResult(null)
                 }
 
@@ -41,17 +56,14 @@ class RestApiService {
         )
     }
 
-    fun getEvents(onResult: (ArrayList<Event>?) -> Unit){
-        retrofit.GetEvents().enqueue(
-            object : Callback<ArrayList<Event>> {
-                override fun onResponse(
-                    call: Call<ArrayList<Event>>?,
-                    response: Response<ArrayList<Event>>?
-                ) {
+    fun createEvents(event: Event, onResult: (Event?) -> Unit){
+        retrofit.CreateEvent(event).enqueue(
+            object : Callback<Event> {
+                override fun onResponse(call: Call<Event>?, response: Response<Event>?) {
                     onResult(response?.body())
                 }
 
-                override fun onFailure(call: Call<ArrayList<Event>>?, t: Throwable?) {
+                override fun onFailure(call: Call<Event>?, t: Throwable?) {
                     onResult(null)
                 }
 
@@ -119,6 +131,36 @@ class RestApiService {
                 override fun onFailure(call: Call<Any>?, t: Throwable?) {
                     onResult(null)
                 }
+            }
+        )
+    }
+
+    fun UpdateReminder(id:Int, reminder: Reminder, onResult: (Boolean?) -> Unit){
+        retrofit.updateReminder(id, reminder).enqueue(
+            object : Callback<Reminder> {
+                override fun onResponse(call: Call<Reminder>?, response: Response<Reminder>?) {
+                    onResult(response?.isSuccessful)
+                }
+
+                override fun onFailure(call: Call<Reminder>?, t: Throwable?) {
+                    onResult(null);
+                }
+
+            }
+        )
+    }
+
+    fun GetReminder(id:Int, onResult: (Reminder?) -> Unit){
+        retrofit.getReminder(id).enqueue(
+            object : Callback<Reminder> {
+                override fun onResponse(call: Call<Reminder>?, response: Response<Reminder>?) {
+                    onResult(response?.body())
+                }
+
+                override fun onFailure(call: Call<Reminder>?, t: Throwable?) {
+                    onResult(null);
+                }
+
             }
         )
     }

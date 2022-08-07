@@ -17,12 +17,13 @@ import com.example.helpingminds.Model.Event
 import com.example.helpingminds.Model.Reminder
 import com.example.helpingminds.R
 import com.example.helpingminds.Utility.Retrofit.RestApiService
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class SetReminderFragment(evnt: Event) : Fragment() {
     private lateinit var dateText:EditText
-    private lateinit var timeText: EditText
+    private lateinit var timeText: TextView
     private lateinit var noteText:EditText
     private lateinit var repeatSpinner: Spinner
     private lateinit var prioritySpinner: Spinner
@@ -30,6 +31,10 @@ class SetReminderFragment(evnt: Event) : Fragment() {
 
     private lateinit var setReminderView: View
     private lateinit var cancelButton: Button
+
+    private lateinit var editButton: Button
+    private lateinit var completedButton: Button
+    private lateinit var updateButton: Button
 
     private val event = evnt
     private lateinit var reminder:Reminder
@@ -49,6 +54,9 @@ class SetReminderFragment(evnt: Event) : Fragment() {
 
     private lateinit var cb: AfterLoginActivityCallback
     private lateinit var uuid:UUID
+
+    private var hourToSet:Int = 0
+    private var minuteToSet:Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,18 +104,99 @@ class SetReminderFragment(evnt: Event) : Fragment() {
 
     }
 
+    private fun setTimeText(reminder: Reminder){
+        var time = reminder.reminderDate.split("T")[1]
+        var hourOfDay = time.split(":")[0].toInt()
+        var minute = time.split(":")[1].toInt()
+
+        val formattedTime: String = when {
+            hourOfDay == 0 -> {
+                if (minute < 10) {
+                    "${hourOfDay + 12}:0${minute} am"
+                } else {
+                    "${hourOfDay + 12}:${minute} am"
+                }
+            }
+            hourOfDay > 12 -> {
+                if (minute < 10) {
+                    "${hourOfDay - 12}:0${minute} pm"
+                } else {
+                    "${hourOfDay - 12}:${minute} pm"
+                }
+            }
+            hourOfDay == 12 -> {
+                if (minute < 10) {
+                    "${hourOfDay}:0${minute} pm"
+                } else {
+                    "${hourOfDay}:${minute} pm"
+                }
+            }
+            else -> {
+                if (minute < 10) {
+                    "${hourOfDay}:${minute} am"
+                } else {
+                    "${hourOfDay}:${minute} am"
+                }
+            }
+        }
+        hourToSet = hourOfDay
+        minuteToSet = minute
+        timeText.text = formattedTime
+    }
+
+    private fun disableView(){
+        timeText.isEnabled = false
+        repeatSpinner.isEnabled = false
+        prioritySpinner.isEnabled = false
+    }
+
+    private fun enableView(){
+        timeText.isEnabled = true
+        repeatSpinner.isEnabled = true
+        prioritySpinner.isEnabled = true
+    }
+
+    private fun completedReminderVisibility(){
+        cancelButton.visibility = View.GONE
+        updateButton.visibility = View.GONE
+        editButton.visibility = View.GONE
+        confirmButton.visibility = View.GONE
+        completedButton.visibility = View.VISIBLE
+    }
+
+    private fun unCompletedReminderVisibility(){
+        cancelButton.visibility = View.VISIBLE
+        updateButton.visibility = View.GONE
+        editButton.visibility = View.VISIBLE
+        confirmButton.visibility = View.GONE
+        completedButton.visibility = View.GONE
+    }
+
+    private fun newReminderVisibility(){
+        cancelButton.visibility = View.GONE
+        updateButton.visibility = View.GONE
+        editButton.visibility = View.GONE
+        confirmButton.visibility = View.VISIBLE
+        completedButton.visibility = View.GONE
+    }
+
     private fun checkIfReminderIsSet(){
         apiService.checkIfReminderExist(event.eventId){
             if(it != null && it.isNotEmpty()){
                 reminder = it[0]
-                cancelButton.visibility = View.VISIBLE
-                confirmButton.visibility = View.GONE
+                if(reminder.completed == true){
+                    completedReminderVisibility()
+                }
+                else{
+                    unCompletedReminderVisibility()
+                }
                 prioritySpinner.setSelection(it.first().priority)
                 repeatSpinner.setSelection(it.first().repeat)
+                setTimeText(reminder)
+                disableView()
             }
             else{
-                cancelButton.visibility = View.GONE
-                confirmButton.visibility = View.VISIBLE
+                newReminderVisibility()
             }
         }
     }
@@ -116,11 +205,48 @@ class SetReminderFragment(evnt: Event) : Fragment() {
     private fun loadValues(){
         //val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         dateText.text = Editable.Factory.getInstance().newEditable(event.eventDate.split("T")[0])
-        timeText.text = Editable.Factory.getInstance().newEditable("6:00am")
+        //timeText.text = Editable.Factory.getInstance().newEditable("00:00am")
         noteText.text = Editable.Factory.getInstance().newEditable(event.eventName)
     }
 
-    
+    private val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
+        TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> // logic to properly handle
+            // the picked timings by user
+            val formattedTime: String = when {
+                hourOfDay == 0 -> {
+                    if (minute < 10) {
+                        "${hourOfDay + 12}:0${minute} am"
+                    } else {
+                        "${hourOfDay + 12}:${minute} am"
+                    }
+                }
+                hourOfDay > 12 -> {
+                    if (minute < 10) {
+                        "${hourOfDay - 12}:0${minute} pm"
+                    } else {
+                        "${hourOfDay - 12}:${minute} pm"
+                    }
+                }
+                hourOfDay == 12 -> {
+                    if (minute < 10) {
+                        "${hourOfDay}:0${minute} pm"
+                    } else {
+                        "${hourOfDay}:${minute} pm"
+                    }
+                }
+                else -> {
+                    if (minute < 10) {
+                        "${hourOfDay}:${minute} am"
+                    } else {
+                        "${hourOfDay}:${minute} am"
+                    }
+                }
+            }
+            hourToSet = hourOfDay
+            minuteToSet = minute
+            timeText.text = formattedTime
+        }
+
     private fun initListener(){
         repeatSpinner.onItemSelectedListener = object:
             AdapterView.OnItemSelectedListener {
@@ -146,20 +272,75 @@ class SetReminderFragment(evnt: Event) : Fragment() {
             }
         }
 
+        editButton.setOnClickListener {
+            enableView()
+            updateButton.visibility = View.VISIBLE
+            editButton.visibility = View.GONE
+        }
+
+        updateButton.setOnClickListener {
+            reminderBar.show()
+            var calendar = Calendar.getInstance()
+
+            var year = dateText.text.split("-")[0].toInt()
+            var month = dateText.text.split("-")[1].toInt()
+            var day = dateText.text.split("-")[2].toInt()
+            var hour = hourToSet
+            var minute = minuteToSet
+            calendar.set(year, month, day, hour, minute, 0)
+
+            var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+
+            reminder.reminderDate = sdf.format(calendar.time)
+            reminder.priority = selectedPriority
+            reminder.repeat = selectedRepetition
+            apiService.UpdateReminder(reminder.reminderId!!, reminder) {
+                if(it == true){
+                    builder.setMessage("Saved successfully")
+                }else{
+                    builder.setMessage("Reminder could not be saved")
+                }
+                var alert = builder.create()
+                alert.show()
+                reminderBar.dismiss()
+            }
+        }
+
         confirmButton.setOnClickListener {
             //save to database
             reminderBar.show()
-            var reminder = Reminder(null, event.eventId, selectedPriority, selectedRepetition)
-            apiService.saveReminder(reminder){
+            var calendar = Calendar.getInstance()
+
+            var year = dateText.text.split("-")[0].toInt()
+            var month = dateText.text.split("-")[1].toInt()
+            var day = dateText.text.split("-")[2].toInt()
+            var hour = hourToSet
+            var minute = minuteToSet
+            calendar.set(year, month, day, hour, minute, 0)
+
+            var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+
+            var reminderNew = Reminder(null, event.eventId, selectedPriority, selectedRepetition)
+            reminderNew.reminderDate = sdf.format(calendar.time)
+            apiService.saveReminder(reminderNew){
                 if(it != null){
-                    //save successful
-                    uuid = cb.setNotification("2022-07-25T0")
+                    var savedReminder = it
+                    uuid = cb.setNotification(event.eventDate, hourToSet, minuteToSet, savedReminder.reminderId!!)
+                    savedReminder.uuid = uuid.toString()
+                    apiService.UpdateReminder(savedReminder.reminderId!!, savedReminder){
+                        if(it != null){
+
+                        }
+                        else{
+                            cb.clearNotification(uuid)
+                        }
+                    }
                     builder.setMessage("Saved successfully")
                     var alert = builder.create()
                     alert.show()
                 }
                 else{
-                    //save unsuccessful
+                    builder.setMessage("Reminder could not be saved")
                 }
 
             }
@@ -167,6 +348,9 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         }
 
         cancelButton.setOnClickListener {
+            reminder.uuid?.let{
+                uuid -> cb.clearNotification(UUID.fromString(uuid))
+            }
             reminder.reminderId?.let { it1 ->
                 apiService.DeleteReminder(it1){
                     if(it != null && it){
@@ -180,6 +364,29 @@ class SetReminderFragment(evnt: Event) : Fragment() {
                     }
                 }
             }
+        }
+
+        timeText.setOnClickListener{
+            val timePicker: TimePickerDialog = TimePickerDialog(
+                // pass the Context
+                activity,
+                // listener to perform task
+                // when time is picked
+                timePickerDialogListener,
+                // default hour when the time picker
+                // dialog is opened
+                12,
+                // default minute when the time picker
+                // dialog is opened
+                10,
+                // 24 hours time picker is
+                // false (varies according to the region)
+                false
+            )
+
+            // then after building the timepicker
+            // dialog show the dialog to user
+            timePicker.show()
         }
     }
 
@@ -209,6 +416,13 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         prioritySpinner = setReminderView.findViewById(R.id.prioritySpinner)
         confirmButton = setReminderView.findViewById(R.id.confirm_button)
         cancelButton = setReminderView.findViewById(R.id.cancel_button)
+
+        editButton = setReminderView.findViewById(R.id.edit_button)
+
+        completedButton = setReminderView.findViewById(R.id.completedButton)
+        completedButton.visibility = View.GONE
+
+        updateButton = setReminderView.findViewById(R.id.save_button)
 
         mProgressBar = ProgressDialog(activity)
         mProgressBar.setTitle("Loading...")

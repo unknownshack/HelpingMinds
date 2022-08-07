@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.ActionFragment"
+    android:background="@color/green">
+
+    <TextView
+        android:id="@+id/actionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Action"
+        android:textColor="@color/black"
+        android:textSize="@dimen/rsp_40"
+        android:layout_marginTop="@dimen/rdp_60"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <LinearLayout
+
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/rdp_299"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actionText"
+        android:layout_marginTop="@dimen/rdp_100"
+        android:gravity="center_horizontal"
+        android:background="@drawable/button"
+        android:id="@+id/createUser"
+        >
+        <ImageView
+            android:layout_width="@dimen/rdp_50"
+            android:layout_height="@dimen/rdp_50"
+            android:src="@drawable/user"
+            android:layout_gravity="center_vertical"
+            />
+
+        <Button
+            android:id="@+id/createUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create User"
+            android:gravity="start|center_vertical"
+            android:textSize="@dimen/rdp_15"
+            android:background="@android:color/transparent"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/rdp_6"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/rdp_299"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createUser"
+        android:layout_marginTop="@dimen/rdp_40"
+        android:gravity="center_horizontal"
+        android:background="@drawable/button"
+        android:id="@+id/createEvent"
+        >
+        <ImageView
+            android:layout_width="@dimen/rdp_50"
+            android:layout_height="@dimen/rdp_50"
+            android:src="@drawable/event"
+            android:layout_gravity="center_vertical"
+            />
+
+        <Button
+            android:id="@+id/createEventButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Event"
+            android:gravity="start|center_vertical"
+            android:textSize="@dimen/rdp_15"
+            android:background="@android:color/transparent"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/rdp_6"/>
+
+
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
