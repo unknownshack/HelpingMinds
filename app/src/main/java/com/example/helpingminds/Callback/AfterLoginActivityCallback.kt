@@ -6,7 +6,7 @@ interface AfterLoginActivityCallback {
     fun switchToCalendarActivity();
     fun signOut();
 
-    fun setNotification(date:String):UUID;
+    fun setNotification(date:String, hour:Int, minute:Int, reminderId:Int):UUID;
 
     fun clearNotification(uuid: UUID)
 }

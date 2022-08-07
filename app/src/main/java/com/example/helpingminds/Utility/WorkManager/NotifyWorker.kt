@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.example.helpingminds.Utility.Retrofit.RestApiService
 
 
 class NotifyWorker(context: Context, params: WorkerParameters) :
@@ -17,10 +18,25 @@ class NotifyWorker(context: Context, params: WorkerParameters) :
     private val NOTIFICATION_CHANNEL_ID = "10001"
     private val default_notification_channel_id = "default"
 
+    private var reminderId = 0
+
     private var context = context
     override fun doWork(): Result {
         Log.i("Rohit", "Testing")
+        reminderId = inputData.getInt("ReminderId", 0)
         triggerNotification()
+        var apiService = RestApiService()
+        apiService.GetReminder(reminderId){
+            if(it != null){
+                var savedReminder = it
+                savedReminder.completed = true
+                apiService.UpdateReminder(reminderId, savedReminder){
+                    if(it != null){
+
+                    }
+                }
+            }
+        }
         return Result.success()
     }
 

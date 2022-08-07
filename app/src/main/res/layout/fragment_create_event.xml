@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Event"
+        android:textColor="@color/black"
+        android:textSize="@dimen/rsp_40"
+        android:layout_marginTop="@dimen/rdp_20"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/rdp_60"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="@dimen/rdp_90"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_40"
+            android:text="Event Name"
+            android:textSize="@dimen/rsp_16"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="@dimen/rdp_250"
+            android:layout_height="@dimen/rdp_36"
+            android:layout_marginStart="@dimen/rdp_13"
+            android:background="@drawable/edittext"
+            android:paddingStart="@dimen/rdp_16" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/rdp_30"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="@dimen/rdp_90"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_40"
+            android:text="Event Date"
+            android:textSize="@dimen/rsp_16"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/dateEdit"
+            android:layout_width="@dimen/rdp_150"
+            android:layout_height="@dimen/rdp_36"
+            android:layout_marginStart="@dimen/rdp_13"
+            android:textColor="@color/black"
+            android:background="@drawable/edittext"
+            android:gravity="center"
+            android:enabled="false"
+            android:hint="01/30/2022"/>
+
+        <Button
+            android:id="@+id/setButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/rdp_40"
+            android:text="Set"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="@dimen/rdp_10"
+            android:background="@drawable/button"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_height="@dimen/rdp_40"
+        android:layout_width="@dimen/rdp_150"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/rdp_50"
+        android:text="Create"
+        android:background="@drawable/button"
+        android:textColor="@color/white"/>
+
+
+</LinearLayout>

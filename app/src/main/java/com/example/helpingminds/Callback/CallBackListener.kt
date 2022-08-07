@@ -5,4 +5,7 @@ interface CallBackListener {
     fun adminLoginCallBack()
     fun SigningIn(username:String, password:String)
     fun createAdminLoginPage(username:String, password:String)
+    fun moveToAdminMenu()
+    fun createUser()
+    fun createEvent()
 }

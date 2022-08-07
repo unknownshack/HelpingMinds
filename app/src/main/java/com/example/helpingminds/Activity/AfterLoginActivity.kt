@@ -13,6 +13,7 @@ import com.example.helpingminds.Callback.AfterLoginActivityCallback
 import com.example.helpingminds.Fragment.MenuFragment
 import com.example.helpingminds.Fragment.SetReminderFragment
 import com.example.helpingminds.Model.Event
+import com.example.helpingminds.Model.Reminder
 import com.example.helpingminds.Model.User
 import com.example.helpingminds.R
 import com.example.helpingminds.Utility.Session.SessionManagement
@@ -67,18 +68,19 @@ class AfterLoginActivity : AppCompatActivity(), AfterLoginActivityCallback {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun setNotification(date:String):UUID {
+    override fun setNotification(date:String, hour: Int, minute: Int, reminderId: Int):UUID {
 
         //we set a tag to be able to cancel all work of this type if needed
         val workTag = "notificationWork"
 
         //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
-        val inputData: Data = Data.Builder().putInt("Test", 1).build()
+        val inputData: Data = Data.Builder().putInt("ReminderId", reminderId).build()
 
         // we then retrieve it inside the NotifyWorker with:
         // final int DBEventID = getInputData().getInt(DBEventIDTag, ERROR_VALUE);
         val notificationWork = OneTimeWorkRequest.Builder(NotifyWorker::class.java)
-            .setInitialDelay(calculateDelay(date), TimeUnit.MILLISECONDS)
+            .setInitialDelay(calculateDelay(date, hour, minute), TimeUnit.MILLISECONDS)
+            //.setInitialDelay(10000, TimeUnit.MILLISECONDS)
             .setInputData(inputData)
             .addTag(workTag)
             .build()
@@ -90,13 +92,13 @@ class AfterLoginActivity : AppCompatActivity(), AfterLoginActivityCallback {
         return uuid
     }
 
-    private fun calculateDelay(dateString:String): Long{
+    private fun calculateDelay(dateString:String, hour:Int, minute:Int): Long{
         var sdf:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         val date: Date = sdf.parse(dateString.split("T")[0])
         val futureCal = Calendar.getInstance()
         futureCal.time = date
-        futureCal.set(Calendar.HOUR_OF_DAY, 19)
-        futureCal.set(Calendar.MINUTE, 55)
+        futureCal.set(Calendar.HOUR_OF_DAY, hour)
+        futureCal.set(Calendar.MINUTE, minute)
 
         val currentCal = Calendar.getInstance()
 

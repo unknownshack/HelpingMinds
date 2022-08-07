@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AdminPageFragment"
     android:background="@color/green"
     android:orientation="vertical">
@@ -13,18 +14,22 @@
         android:layout_height="wrap_content"
         android:text="Create Login"
         android:textColor="@color/black"
-        android:textSize="@dimen/rsp_26"
+        android:textSize="@dimen/rsp_40"
         android:layout_marginTop="@dimen/rdp_20"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/rdp_30">
+        android:layout_marginTop="@dimen/rdp_30"
+        android:gravity="center_vertical"
+        android:id="@+id/nameLayout">
 
         <TextView
             android:id="@+id/nameText"
@@ -32,24 +37,39 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/rdp_40"
             android:text="Name"
-            android:textSize="@dimen/rsp_20"
+            android:textSize="@dimen/rsp_16"
             android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/nameEdit"
             android:layout_width="@dimen/rdp_250"
-            android:layout_height="@dimen/rdp_40"
+            android:layout_height="@dimen/rdp_36"
+            android:maxLines="1"
             android:layout_marginStart="@dimen/rdp_13"
             android:background="@drawable/edittext"
             android:paddingStart="@dimen/rdp_16" />
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/nameValid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="* Name cannot be null"
+        android:textColor="@color/gold"
+        app:layout_constraintTop_toBottomOf="@id/nameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/nameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/rdp_30">
+        android:layout_marginTop="@dimen/rdp_30"
+        android:gravity="center_vertical"
+        android:id="@+id/emailLayout">
 
         <TextView
             android:id="@+id/emailText"
@@ -57,24 +77,38 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/rdp_40"
             android:text="Email"
-            android:textSize="@dimen/rsp_20"
+            android:textSize="@dimen/rsp_16"
             android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/emailEdit"
+            android:maxLines="1"
             android:layout_width="@dimen/rdp_250"
-            android:layout_height="@dimen/rdp_40"
+            android:layout_height="@dimen/rdp_36"
             android:layout_marginStart="@dimen/rdp_13"
             android:background="@drawable/edittext"
             android:paddingStart="@dimen/rdp_16" />
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/emailValid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="* Name cannot be null"
+        android:textColor="@color/gold"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <LinearLayout
+        android:id="@+id/passwordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/rdp_30">
+        android:layout_marginTop="@dimen/rdp_30"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout">
 
         <TextView
             android:id="@+id/passwordText"
@@ -82,21 +116,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/rdp_40"
             android:text="Password"
-            android:textSize="@dimen/rsp_20"
+            android:textSize="@dimen/rsp_16"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/passwordEdit"
-            android:layout_width="@dimen/rdp_250"
-            android:layout_height="@dimen/rdp_40"
-            android:layout_marginStart="@dimen/rdp_13"
-            android:background="@drawable/edittext"
-            android:paddingStart="@dimen/rdp_16" />
+        <com.google.android.material.textfield.TextInputLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:maxLines="1"
+                android:id="@+id/passwordEdit"
+                android:layout_width="@dimen/rdp_250"
+                android:layout_height="@dimen/rdp_36"
+                android:layout_marginStart="@dimen/rdp_13"
+                android:background="@drawable/edittext"
+                android:inputType="textPassword"
+                android:paddingStart="@dimen/rdp_16"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/confirmPwdLayout"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -109,23 +155,47 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/rdp_40"
             android:text="Confirm Password"
-            android:textSize="@dimen/rsp_20"
+            android:textSize="@dimen/rsp_16"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/confirmPasswordEdit"
-            android:layout_width="@dimen/rdp_250"
-            android:layout_height="@dimen/rdp_40"
-            android:layout_marginStart="@dimen/rdp_13"
-            android:background="@drawable/edittext"
-            android:paddingStart="@dimen/rdp_16" />
+        <com.google.android.material.textfield.TextInputLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:maxLines="1"
+                android:id="@+id/confirmPasswordEdit"
+                android:layout_width="@dimen/rdp_250"
+                android:layout_height="@dimen/rdp_36"
+                android:layout_marginStart="@dimen/rdp_13"
+                android:background="@drawable/edittext"
+                android:paddingStart="@dimen/rdp_16"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/confirmPwdValid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="* Name cannot be null"
+        android:textColor="@color/gold"
+        app:layout_constraintTop_toBottomOf="@id/confirmPwdLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <Button
+        app:layout_constraintTop_toBottomOf="@id/confirmPwdLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/createButton"
         android:layout_height="@dimen/rdp_40"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/rdp_150"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/rdp_30"
         android:text="Create"
@@ -133,4 +203,4 @@
         android:textColor="@color/white"/>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

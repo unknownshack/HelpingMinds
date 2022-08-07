@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#01a101</color>
     <color name="buttonColor">#1d4ac9</color>
+    <color name="red">	#FF0000</color>
+    <color name="gold">#e3b448</color>
 </resources>
