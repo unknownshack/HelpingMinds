@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class RestApiService {
     private val retrofit = RetrofitHelper.buildService(LoginAPI::class.java)
-    fun checkLogin(user: User, onResult: (Int?) -> Unit){
+    fun checkLogin(user: User, onResult: (Int?) -> Unit) {
         retrofit.LogIn(user).enqueue(
             object : Callback<Int> {
                 override fun onResponse(call: Call<Int>?, response: Response<Int>?) {
@@ -25,9 +25,9 @@ class RestApiService {
         )
     }
 
-    fun checkAdminLogin(user:User, onResult:(Boolean?) -> Unit){
+    fun checkAdminLogin(user: User, onResult: (Boolean?) -> Unit) {
         retrofit.AdminLogIn(user).enqueue(
-            object:Callback<Void>{
+            object : Callback<Void> {
                 override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
                     onResult(response?.isSuccessful)
                 }
@@ -41,9 +41,9 @@ class RestApiService {
         )
     }
 
-    fun createUser(user:User, onResult: (User?) -> Unit){
+    fun createUser(user: User, onResult: (User?) -> Unit) {
         retrofit.CreateUser(user).enqueue(
-            object:Callback<User>{
+            object : Callback<User> {
                 override fun onResponse(call: Call<User>?, response: Response<User>?) {
                     onResult(response?.body())
                 }
@@ -56,7 +56,7 @@ class RestApiService {
         )
     }
 
-    fun createEvents(event: Event, onResult: (Event?) -> Unit){
+    fun createEvents(event: Event, onResult: (Event?) -> Unit) {
         retrofit.CreateEvent(event).enqueue(
             object : Callback<Event> {
                 override fun onResponse(call: Call<Event>?, response: Response<Event>?) {
@@ -71,7 +71,7 @@ class RestApiService {
         )
     }
 
-    fun getDateEvents(date: String, onResult: (ArrayList<Event>?) -> Unit){
+    fun getDateEvents(date: String, onResult: (ArrayList<Event>?) -> Unit) {
         retrofit.GetDateEvents(date).enqueue(
             object : Callback<ArrayList<Event>> {
                 override fun onResponse(
@@ -89,7 +89,25 @@ class RestApiService {
         )
     }
 
-    fun checkIfReminderExist(id: Int, onResult: (ArrayList<Reminder>?) -> Unit){
+    fun getEventByMonthYear(month: Int, year: Int, onResult: (ArrayList<Event>?) -> Unit) {
+        retrofit.GetDateEventByDate(month, year).enqueue(
+            object : Callback<ArrayList<Event>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Event>>?,
+                    response: Response<ArrayList<Event>>?
+                ) {
+                    onResult(response?.body())
+                }
+
+                override fun onFailure(call: Call<ArrayList<Event>>?, t: Throwable?) {
+                    onResult(null)
+                }
+
+            }
+        )
+    }
+
+    fun checkIfReminderExist(id: Int, onResult: (ArrayList<Reminder>?) -> Unit) {
         retrofit.checkIfReminderExist(id).enqueue(
             object : Callback<ArrayList<Reminder>> {
                 override fun onResponse(
@@ -106,7 +124,7 @@ class RestApiService {
         )
     }
 
-    fun saveReminder(reminder: Reminder, onResult: (Reminder?) -> Unit){
+    fun saveReminder(reminder: Reminder, onResult: (Reminder?) -> Unit) {
         retrofit.saveReminder(reminder).enqueue(
             object : Callback<Reminder> {
                 override fun onResponse(call: Call<Reminder>?, response: Response<Reminder>?) {
@@ -121,7 +139,7 @@ class RestApiService {
         )
     }
 
-    fun DeleteReminder(id:Int, onResult: (Boolean?) -> Unit){
+    fun DeleteReminder(id: Int, onResult: (Boolean?) -> Unit) {
         retrofit.deleteReminder(id).enqueue(
             object : Callback<Any> {
                 override fun onResponse(call: Call<Any>?, response: Response<Any>?) {
@@ -135,7 +153,7 @@ class RestApiService {
         )
     }
 
-    fun UpdateReminder(id:Int, reminder: Reminder, onResult: (Boolean?) -> Unit){
+    fun UpdateReminder(id: Int, reminder: Reminder, onResult: (Boolean?) -> Unit) {
         retrofit.updateReminder(id, reminder).enqueue(
             object : Callback<Reminder> {
                 override fun onResponse(call: Call<Reminder>?, response: Response<Reminder>?) {
@@ -150,7 +168,7 @@ class RestApiService {
         )
     }
 
-    fun GetReminder(id:Int, onResult: (Reminder?) -> Unit){
+    fun GetReminder(id: Int, onResult: (Reminder?) -> Unit) {
         retrofit.getReminder(id).enqueue(
             object : Callback<Reminder> {
                 override fun onResponse(call: Call<Reminder>?, response: Response<Reminder>?) {
@@ -159,6 +177,24 @@ class RestApiService {
 
                 override fun onFailure(call: Call<Reminder>?, t: Throwable?) {
                     onResult(null);
+                }
+
+            }
+        )
+    }
+
+    fun GetAllReminder(onResult: (ArrayList<Reminder>?) -> Unit) {
+        retrofit.getAllReminder().enqueue(
+            object : Callback<ArrayList<Reminder>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Reminder>>?,
+                    response: Response<ArrayList<Reminder>>?
+                ) {
+                    onResult(response?.body())
+                }
+
+                override fun onFailure(call: Call<ArrayList<Reminder>>?, t: Throwable?) {
+                    onResult(null)
                 }
 
             }

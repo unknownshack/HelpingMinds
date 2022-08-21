@@ -4,8 +4,11 @@
     package="com.example.helpingminds">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name = "android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.CALL_PHONE"
+        tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +22,21 @@
         android:theme="@style/Theme.HelpingMinds"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.ManageReminderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.WellnessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.QuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ImportantEventsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.HomepageActivity"
+            android:exported="false" />
         <activity
             android:name=".CalendarActivity"
             android:exported="false" />

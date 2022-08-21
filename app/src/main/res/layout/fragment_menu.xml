@@ -9,6 +9,7 @@
     android:background="@color/green">
 
     <TextView
+        android:id="@+id/homepage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/rsp_40"
         android:background="@color/white"
@@ -30,6 +31,7 @@
         android:layout_marginBottom="@dimen/rdp_5"
         />
     <TextView
+        android:id="@+id/importantEventsMenu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/rsp_40"
         android:background="@color/white"
@@ -40,6 +42,7 @@
         android:layout_marginBottom="@dimen/rdp_5"
         />
     <TextView
+        android:id="@+id/wellness"
         android:layout_width="match_parent"
         android:layout_height="@dimen/rsp_40"
         android:background="@color/white"
@@ -50,6 +53,7 @@
         android:layout_marginBottom="@dimen/rdp_5"
         />
     <TextView
+        android:id="@+id/questionAboutApp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/rsp_40"
         android:background="@color/white"
@@ -60,6 +64,7 @@
         android:layout_marginBottom="@dimen/rdp_5"
         />
     <TextView
+        android:id="@+id/manageReminder"
         android:layout_width="match_parent"
         android:layout_height="@dimen/rsp_40"
         android:background="@color/white"

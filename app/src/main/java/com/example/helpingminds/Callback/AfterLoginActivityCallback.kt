@@ -8,5 +8,15 @@ interface AfterLoginActivityCallback {
 
     fun setNotification(date:String, hour:Int, minute:Int, reminderId:Int):UUID;
 
+    fun switchToHomePageActivity()
+
+    fun switchToImportantEventActivity()
+
+    fun switchToQuestionAboutAppActivity()
+
+    fun switchToWellnessActivity()
+
+    fun switchToManageReminderActivity()
+
     fun clearNotification(uuid: UUID)
 }

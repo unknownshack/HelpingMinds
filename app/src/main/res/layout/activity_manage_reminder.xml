@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ManageReminderActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/headerlogo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/rdp_160"
+        android:layout_marginBottom="@dimen/rdp_80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/body"
+        android:background="@color/green"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/rsp_24"
+            android:text="Manage Reminder"
+            android:gravity="center"
+            android:padding="@dimen/rdp_20"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+           />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/no_event"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView android:layout_width="@dimen/rdp_160"
+            android:layout_height="@dimen/rdp_160"
+            android:src="@drawable/no_event"
+            android:layout_marginTop="@dimen/rdp_20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No reminder available"
+            android:textColor="@color/purple_200"
+            android:textStyle="bold"
+            android:textSize="@dimen/rsp_15"
+            />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footerinfo"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/body"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

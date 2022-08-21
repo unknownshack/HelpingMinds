@@ -5,12 +5,16 @@ import android.app.FragmentManager
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.helpingminds.*
 import com.example.helpingminds.Callback.CallBackListener
 import com.example.helpingminds.Fragment.*
 import com.example.helpingminds.Model.User
+import com.example.helpingminds.Utility.CustomClass.Phone
+import com.example.helpingminds.Utility.CustomClass.UserInfo
 import com.example.helpingminds.Utility.Retrofit.RestApiService
 import com.example.helpingminds.Utility.Session.SessionManagement
 
@@ -19,6 +23,8 @@ class MainActivity : AppCompatActivity(), CallBackListener {
     val manager = supportFragmentManager
     private lateinit var sessionManagement: SessionManagement
     private lateinit var progress: ProgressDialog
+    private lateinit var footerView: View
+    private lateinit var footerPhone: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,21 +33,32 @@ class MainActivity : AppCompatActivity(), CallBackListener {
 
     override fun onStart() {
         super.onStart()
+
+        initViewAndListener()
         initProgress()
         sessionManagement = SessionManagement(this)
         var userID = sessionManagement.getSession()
 
-        if(userID != -1){
+        if (userID != -1) {
+            UserInfo.userId = userID
             MoveToAfterLoginActivity()
-        }
-        else{
+        } else {
             val transaction = manager.beginTransaction()
             transaction.replace(R.id.body, HomePage())
             transaction.commit()
         }
     }
 
-    private fun initProgress(){
+    private fun initViewAndListener() {
+        footerView = findViewById(R.id.footer)
+        footerPhone = footerView.findViewById(R.id.phoneNumber)
+
+        footerPhone.setOnClickListener {
+            Phone.makeCall(this, footerPhone.text.split(":")[1])
+        }
+    }
+
+    private fun initProgress() {
         progress = ProgressDialog(this)
         progress.setTitle("Processing...")
         progress.setMessage("Please wait...")
@@ -64,19 +81,20 @@ class MainActivity : AppCompatActivity(), CallBackListener {
     }
 
 
-    override fun SigningIn(userName:String, password:String) {
+    override fun SigningIn(userName: String, password: String) {
         progress.show()
         val loginApiService = RestApiService()
         var user = User(-1, userName, password)
 
-        loginApiService.checkLogin(user){
-            if(it != null && it != -1){
+        loginApiService.checkLogin(user) {
+            if (it != null && it != -1) {
                 progress.setMessage("Logging In")
                 user.userId = it!!
+                UserInfo.userId = it!!
                 sessionManagement.saveSession(user)
 
                 MoveToAfterLoginActivity()
-            }else{
+            } else {
                 progress.dismiss()
                 Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
             }
@@ -89,10 +107,10 @@ class MainActivity : AppCompatActivity(), CallBackListener {
         val loginApiService = RestApiService()
         val user = User(-1, username, password)
 
-        loginApiService.checkAdminLogin(user){
-            if(it != true){
+        loginApiService.checkAdminLogin(user) {
+            if (it != true) {
                 Toast.makeText(this, "Admin Login Failed", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 MoveToMenu()
             }
             progress.dismiss()
@@ -118,14 +136,14 @@ class MainActivity : AppCompatActivity(), CallBackListener {
         transaction.commit()
     }
 
-    private fun MoveToAfterLoginActivity(){
+    private fun MoveToAfterLoginActivity() {
         val switchActivityIntent = Intent(this, AfterLoginActivity::class.java)
         progress.dismiss()
         startActivity(switchActivityIntent)
         finish()
     }
 
-    private fun MoveToMenu(){
+    private fun MoveToMenu() {
         val transaction = manager.beginTransaction()
         transaction.replace(R.id.body, ActionFragment())
         transaction.addToBackStack(null)

@@ -24,12 +24,12 @@ class CalendarActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private var recycleViewAdapter: RecycleViewAdapter? = null
-    private lateinit var mprogress:ProgressDialog
+    private lateinit var mprogress: ProgressDialog
     private lateinit var menuButton: ImageView
     private lateinit var noEventView: LinearLayout
 
     private lateinit var calendarView: CalendarView
-    private lateinit var today:Calendar
+    private lateinit var today: Calendar
     private var selectedDate: Calendar = Calendar.getInstance()
 
     private var eventList: ArrayList<Event> = ArrayList<Event>()
@@ -49,7 +49,7 @@ class CalendarActivity : AppCompatActivity() {
         }
 
         calendarView.setOnDateChangeListener { view, year, month, day ->
-            var dateString = "${month+1}-$day-$year"
+            var dateString = "${month + 1}-$day-$year"
 
             val sdf = SimpleDateFormat("MM-dd-yyyy")
             val date: Date = sdf.parse(dateString)
@@ -62,36 +62,38 @@ class CalendarActivity : AppCompatActivity() {
         recyclerView.adapter = recycleViewAdapter
 
         today = Calendar.getInstance()
-        var todayString = "${today.get(Calendar.MONTH)+1}-${today.get(Calendar.DAY_OF_MONTH)}-${today.get(Calendar.YEAR)}"
+        var todayString = "${today.get(Calendar.MONTH) + 1}-${today.get(Calendar.DAY_OF_MONTH)}-${
+            today.get(Calendar.YEAR)
+        }"
         GetEvents(todayString)
 
 
     }
 
-    private fun GetEvents(dateString: String){
+    private fun GetEvents(dateString: String) {
         var calendarService = RestApiService()
         mprogress.show()
-        calendarService.getDateEvents(dateString){
-            if(it != null){
+        calendarService.getDateEvents(dateString) {
+            if (it != null) {
                 eventList.clear()
                 eventList.addAll(it)
-            }
-            else{
+            } else {
                 eventList.clear()
             }
 
-            if(eventList.isEmpty()){
+
+            if (eventList.isEmpty()) {
                 noEventView.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 noEventView.visibility = View.GONE
             }
+            recyclerView.adapter = recycleViewAdapter
             recycleViewAdapter?.notifyDataSetChanged()
             mprogress.dismiss()
         }
     }
 
-    private fun InitProgressDialog(){
+    private fun InitProgressDialog() {
         mprogress = ProgressDialog(this)
         mprogress.setTitle("Fetching Events...")
         mprogress.setMessage("Please wait...")
@@ -100,11 +102,16 @@ class CalendarActivity : AppCompatActivity() {
     }
 }
 
-class RecycleViewAdapter(private val lst: ArrayList<Event>,  context: Context, selectedDate: Calendar) : RecyclerView.Adapter<AdapterHolder>(){
+class RecycleViewAdapter(
+    private val lst: ArrayList<Event>,
+    context: Context,
+    selectedDate: Calendar
+) : RecyclerView.Adapter<AdapterHolder>() {
     val activityContext = context
     val selDate = selectedDate
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterHolder {
-        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_view, parent, false)
+        val inflatedView =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_view, parent, false)
         return AdapterHolder(inflatedView)
     }
 
@@ -114,50 +121,51 @@ class RecycleViewAdapter(private val lst: ArrayList<Event>,  context: Context, s
 
     override fun onBindViewHolder(holder: AdapterHolder, position: Int) {
         val holder = holder as AdapterHolder
-        holder.setUpViews(lst[position])
+        holder.setUpViews(lst[position], selDate)
         holder.setUpListener(activityContext, selDate)
     }
 
 }
 
-class AdapterHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class AdapterHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var view: View = itemView
     private val listText: TextView = itemView.findViewById(R.id.listText)
-    private val setButton:Button = itemView.findViewById(R.id.setButton)
-    private lateinit var event:Event
+    private val setButton: Button = itemView.findViewById(R.id.setButton)
+    private lateinit var event: Event
 
 
-    fun setUpViews(evnt:Event){
+    fun setUpViews(evnt: Event, selectedDate: Calendar) {
         listText.text = evnt.eventName
         event = evnt
+
+        if (compareDate(selectedDate)) {
+            setButton.visibility = View.VISIBLE
+        }
     }
 
-    private fun compareDate(selectedDate: Calendar):Boolean{
+    private fun compareDate(selectedDate: Calendar): Boolean {
         var today = Calendar.getInstance()
-        return if(selectedDate.get(Calendar.YEAR) > today.get(Calendar.YEAR)){
+        return if (selectedDate.get(Calendar.YEAR) > today.get(Calendar.YEAR)) {
             true
-        }else if(selectedDate.get(Calendar.YEAR) < today.get(Calendar.YEAR)){
+        } else if (selectedDate.get(Calendar.YEAR) < today.get(Calendar.YEAR)) {
             false
-        } else{
+        } else {
             selectedDate.get(Calendar.DAY_OF_YEAR) >= today.get(Calendar.DAY_OF_YEAR)
         }
     }
 
-    fun setUpListener(context: Context, selectedDate: Calendar){
+    fun setUpListener(context: Context, selectedDate: Calendar) {
         view.setOnClickListener {
-            if(compareDate(selectedDate)){
-                var intent = Intent(context, AfterLoginActivity::class.java)
-                intent.putExtra("fragmentToStart", "SetReminder")
-                intent.putExtra("event",event)
-                context.startActivity(intent)
-            }
+
         }
 
         setButton.setOnClickListener {
-            var intent = Intent(context, AfterLoginActivity::class.java)
-            intent.putExtra("fragmentToStart", "SetReminder")
-            intent.putExtra("event",event)
-            context.startActivity(intent)
+            if (compareDate(selectedDate)) {
+                var intent = Intent(context, AfterLoginActivity::class.java)
+                intent.putExtra("fragmentToStart", "SetReminder")
+                intent.putExtra("event", event)
+                context.startActivity(intent)
+            }
         }
     }
 

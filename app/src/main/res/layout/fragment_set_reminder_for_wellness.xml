@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.SetReminderFragment"
+    android:background="@color/green">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set a Reminder"
+        android:textSize="@dimen/rsp_20"
+        android:gravity="center"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/rdp_20"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/timelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginTop="@dimen/rdp_40"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <TextView
+            android:id="@+id/timeEditText"
+            android:focusable="false"
+            android:layout_width="@dimen/rdp_80"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_30"
+            android:text="00:00"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:paddingStart="@dimen/rdp_4"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/timelayout"
+        android:layout_marginTop="@dimen/rdp_15"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Notes"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <EditText
+            android:id="@+id/noteEditText"
+            android:layout_width="@dimen/rdp_200"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_10"
+            android:background="@drawable/edittext"
+            android:hint="Add the note for reminder"
+            android:padding="@dimen/rdp_5"
+            android:paddingStart="@dimen/rdp_10"
+            android:scrollHorizontally="true"
+            android:textColor="@color/black"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/repeatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notesLayout"
+        android:layout_marginTop="@dimen/rdp_15"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Repeat"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <Spinner
+            android:id="@+id/repeatSpinner"
+            android:layout_width="@dimen/rdp_150"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_marginStart="@dimen/rdp_30"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/priorityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/repeatLayout"
+        android:layout_marginTop="@dimen/rdp_15"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:text="Priority"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:layout_marginStart="@dimen/rsp_40"
+            />
+
+        <Spinner
+            android:id="@+id/prioritySpinner"
+            android:layout_width="@dimen/rdp_150"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_marginStart="@dimen/rdp_30"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/priorityLayout"
+        tools:layout_editor_absoluteX="49dp">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/rdp_20"
+            android:background="@drawable/button"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/rsp_13" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_20"
+            android:background="@drawable/button"
+            android:text="Confirm"
+            android:textSize="@dimen/rsp_13"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/edit_button"
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_20"
+            android:background="@drawable/button"
+            android:text="Edit"
+            android:textSize="@dimen/rsp_13"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/rdp_20"
+            android:background="@drawable/button"
+            android:text="Update"
+            android:textSize="@dimen/rsp_13"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

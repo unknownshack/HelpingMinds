@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:layout_marginBottom="@dimen/rdp_10">
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/rdp_250"
+        android:text="This is the "
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/rsp_15"
+        android:textColor="@color/black"
+        android:paddingEnd="@dimen/rdp_5"
+        android:paddingTop="@dimen/rdp_20"
+        android:paddingBottom="@dimen/rdp_20"
+        android:paddingStart="@dimen/rdp_20"
+        />
+    <TextView
+        android:id="@+id/time"
+        android:layout_height="wrap_content"
+        android:layout_width="@dimen/rdp_70"
+        android:text="00:00 am"
+        android:ellipsize="end"
+        android:textSize="@dimen/rsp_15"
+        android:textColor="@color/black"
+        />
+    <Switch
+        android:id="@+id/switchtoggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rdp_20"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+</LinearLayout>
