@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/rdp_5"
+    android:layout_marginBottom="@dimen/rdp_5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       >
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_height="wrap_content"
+            android:layout_width="@dimen/rdp_110"
+            android:paddingTop="@dimen/rdp_5"
+            android:paddingBottom="@dimen/rdp_5"
+            android:paddingStart="@dimen/rdp_36"
+            android:text="25th May -"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15"
+            android:singleLine="true"
+            />
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="@dimen/rdp_299"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/rdp_5"
+            android:paddingBottom="@dimen/rdp_5"
+            android:text="hey how are you is this everything that you mentioned to me yeasterlsdflgkjsdlkfjglsdkjfglkjsdlfkjglskjdflg"
+            android:textColor="@color/black"
+            android:textSize="@dimen/rsp_15" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rdp_1"
+        android:background="#c0c0c0"
+        android:layout_marginTop="@dimen/rdp_5"/>
+
+</LinearLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/headerlogo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/rdp_160"
+        android:layout_marginBottom="@dimen/rdp_80"
+        android:background="@color/green"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    <TextView
+        android:id="@+id/importantEvents"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="@id/body"
+        android:text="Important Events"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="@dimen/rdp_40"
+        android:elevation="@dimen/rdp_2"
+        android:padding="@dimen/rdp_20"/>
+
+    <LinearLayout
+        android:id="@+id/layoutEventFor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/importantEvents"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/rdp_20"
+        android:gravity="center_horizontal"
+        >
+
+        <EditText
+            android:id="@+id/eventFor"
+            android:layout_height="@dimen/rdp_30"
+            android:layout_width="@dimen/rdp_180"
+            android:hint="Event for month"
+            android:enabled="false"
+            android:textColorHint="@color/black"
+            android:paddingStart="@dimen/rsp_20"
+            android:background="@drawable/edittext"
+            />
+
+        <RelativeLayout
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="@dimen/rdp_30"
+            android:id="@+id/relativeMonth">
+
+            <TextView
+                android:id="@+id/monthText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext"
+                android:gravity="center_vertical"
+                android:hint="Mon"
+                android:paddingStart="@dimen/rdp_15"
+                android:textColor="@color/black"
+                android:textSize="@dimen/rsp_15" />
+
+            <ImageView
+                android:layout_width="@dimen/rdp_15"
+                android:layout_height="@dimen/rdp_30"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/rdp_20"
+                android:src="@drawable/dropdown" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/rdp_100"
+            android:layout_height="@dimen/rdp_30"
+            android:id="@+id/relativeYear">
+
+            <TextView
+                android:id="@+id/yearText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext"
+                android:gravity="center_vertical"
+                android:hint="Year"
+                android:paddingStart="@dimen/rdp_15"
+                android:textColor="@color/black"
+                android:textSize="@dimen/rdp_15" />
+
+            <ImageView
+                android:layout_width="@dimen/rdp_15"
+                android:layout_height="@dimen/rdp_20"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/rdp_20"
+                android:src="@drawable/dropdown" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listView"
+        app:layout_constraintTop_toBottomOf="@id/layoutEventFor"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:scrollbars="vertical"
+        />
+
+        <LinearLayout
+            android:id="@+id/no_event"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/rdp_280"
+            android:gravity="center"
+
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/layoutEventFor"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/rdp_120"
+                android:layout_height="@dimen/rdp_120"
+                android:layout_marginTop="@dimen/rdp_20"
+                android:src="@drawable/no_event" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No event available"
+                android:textColor="@color/purple_200"
+                android:textSize="@dimen/rsp_15"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footerinfo"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/body"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

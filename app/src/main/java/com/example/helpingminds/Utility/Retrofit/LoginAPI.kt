@@ -31,23 +31,34 @@ interface LoginAPI {
     @GET("/helpingminds/Events/id={date}")
     fun GetDateEvents(@Path("date") date: String): Call<ArrayList<Event>>
 
+    @Headers("Content-Type: application/json")
+    @GET("/helpingminds/Events/GetEventByDate/{month}/{year}")
+    fun GetDateEventByDate(
+        @Path("month") month: Int,
+        @Path("year") year: Int
+    ): Call<ArrayList<Event>>
+
+
     @GET("/helpingminds/api/Reminders/eventId/{id}")
-    fun checkIfReminderExist(@Path("id") id:Int): Call<ArrayList<Reminder>>
+    fun checkIfReminderExist(@Path("id") id: Int): Call<ArrayList<Reminder>>
 
     @POST("/helpingminds/api/Reminders")
     fun saveReminder(@Body reminder: Reminder): Call<Reminder>
 
     @DELETE("/helpingminds/api/Reminders/{id}")
-    fun deleteReminder(@Path("id") id:Int): Call<Any>
+    fun deleteReminder(@Path("id") id: Int): Call<Any>
 
     @GET("/helpingminds/api/Users")
     fun getUser(): Call<List<User>>
 
     @PUT("/helpingminds/api/Reminders/{id}")
-    fun updateReminder(@Path("id") id:Int, @Body reminder:Reminder): Call<Reminder>
+    fun updateReminder(@Path("id") id: Int, @Body reminder: Reminder): Call<Reminder>
 
     @GET("/helpingminds/api/Reminders/{id}")
-    fun getReminder(@Path("id") id:Int): Call<Reminder>
+    fun getReminder(@Path("id") id: Int): Call<Reminder>
+
+    @GET("/helpingminds/api/Reminders")
+    fun getAllReminder(): Call<ArrayList<Reminder>>
 
 }
 

@@ -14,8 +14,14 @@ import com.example.helpingminds.R
 class MenuFragment : Fragment() {
     private lateinit var menuView:View
     private lateinit var calendar:TextView
+    private lateinit var homepage:TextView
+    private lateinit var questionAboutApp: TextView
+    private lateinit var wellness: TextView
+    private lateinit var manageReminder: TextView
     private lateinit var cb: AfterLoginActivityCallback
     private lateinit var signOutButton: Button
+    private lateinit var importantEventsMenu: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +36,37 @@ class MenuFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         calendar = menuView.findViewById(R.id.calendar)
         signOutButton = menuView.findViewById(R.id.signOut)
+        homepage = menuView.findViewById(R.id.homepage)
+        importantEventsMenu = menuView.findViewById(R.id.importantEventsMenu)
+        questionAboutApp = menuView.findViewById(R.id.questionAboutApp)
+        wellness = menuView.findViewById(R.id.wellness)
+        manageReminder = menuView.findViewById(R.id.manageReminder)
 
         if(activity is AfterLoginActivityCallback){
             cb = activity as AfterLoginActivityCallback
         }
         calendar.setOnClickListener{
             cb.switchToCalendarActivity()
+        }
+
+        homepage.setOnClickListener{
+            cb.switchToHomePageActivity()
+        }
+
+        importantEventsMenu.setOnClickListener{
+            cb.switchToImportantEventActivity()
+        }
+
+        questionAboutApp.setOnClickListener{
+            cb.switchToQuestionAboutAppActivity()
+        }
+
+        wellness.setOnClickListener {
+            cb.switchToWellnessActivity()
+        }
+
+        manageReminder.setOnClickListener {
+            cb.switchToManageReminderActivity()
         }
 
         signOutButton.setOnClickListener {

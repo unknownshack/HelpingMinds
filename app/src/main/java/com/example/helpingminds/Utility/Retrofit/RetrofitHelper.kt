@@ -9,10 +9,12 @@ object RetrofitHelper {
 
     private val client = OkHttpClient.Builder().build()
 
-    val retrofit =  Retrofit.Builder().baseUrl(baseUrl)
+    val retrofit by lazy {
+        Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+    }
 
     fun<T> buildService(service: Class<T>): T{
         return retrofit.create(service)

@@ -14,7 +14,7 @@ android:id="@+id/body"
 <TextView
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:text="Welcome\nto\nHelping Minds"
+    android:text="Welcome\nto\nHelpingMinds"
     android:textSize="@dimen/rsp_40"
     android:layout_marginTop="@dimen/rdp_60"
     android:layout_marginBottom="@dimen/rdp_20"

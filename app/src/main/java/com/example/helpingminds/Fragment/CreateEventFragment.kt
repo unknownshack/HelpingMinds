@@ -25,7 +25,7 @@ class CreateEventFragment : Fragment() {
     private lateinit var setButton: Button
     private lateinit var builder: AlertDialog.Builder
     private lateinit var mProgressBar: ProgressDialog
-    private var popped:Boolean = false
+    private var popped: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,32 +36,33 @@ class CreateEventFragment : Fragment() {
         return createEventFragment
     }
 
-    private fun initAlert(){
+    private fun initAlert() {
         builder = AlertDialog.Builder(activity)
         builder.setCancelable(true)
 
         builder.setPositiveButton(
             "OK",
-            DialogInterface.OnClickListener { dialog, id -> run {
-                dialog.cancel()
-                if(!popped){
-                    requireActivity().supportFragmentManager.popBackStack()
-                    popped = true
+            DialogInterface.OnClickListener { dialog, id ->
+                run {
+                    dialog.cancel()
+                    if (!popped) {
+                        requireActivity().supportFragmentManager.popBackStack()
+                        popped = true
+                    }
+                    //activity?.finish()
                 }
-                //activity?.finish()
-            }
             })
 
-        builder.setOnDismissListener(){
+        builder.setOnDismissListener() {
             //activity?.finish()
-            if (!popped){
+            if (!popped) {
                 requireActivity().supportFragmentManager.popBackStack();
                 popped = true
             }
         }
     }
 
-    private fun initProgressBar(){
+    private fun initProgressBar() {
         mProgressBar = ProgressDialog(activity)
         mProgressBar.setTitle("Saving Event...")
         mProgressBar.setMessage("Please Wait...")
@@ -80,19 +81,25 @@ class CreateEventFragment : Fragment() {
         initAlert()
         initProgressBar()
 
-        setButton.setOnClickListener{
+        setButton.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
 
 
-            val dpd = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                c.set(year, monthOfYear, dayOfMonth)
-                val sdf = SimpleDateFormat("yyyy-MM-dd")
-                eventDate.setText(sdf.format(c.time))
+            val dpd = DatePickerDialog(
+                requireActivity(),
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    c.set(year, monthOfYear, dayOfMonth)
+                    val sdf = SimpleDateFormat("yyyy-MM-dd")
+                    eventDate.setText(sdf.format(c.time))
 
-            }, year, month, day)
+                },
+                year,
+                month,
+                day
+            )
 
             dpd.show()
         }
@@ -101,13 +108,12 @@ class CreateEventFragment : Fragment() {
             mProgressBar.show()
             var event = Event(0, eventName.text.toString(), eventDate.text.toString())
             var apiService = RestApiService()
-            apiService.createEvents(event){
-                if(it != null){
+            apiService.createEvents(event) {
+                if (it != null) {
                     builder.setMessage("Event created successfully")
                     var alert = builder.create()
                     alert.show()
-                }
-                else{
+                } else {
                     builder.setMessage("Event could not be created!!")
                     var alert = builder.create()
                     alert.show()

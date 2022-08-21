@@ -16,15 +16,16 @@ import com.example.helpingminds.Callback.AfterLoginActivityCallback
 import com.example.helpingminds.Model.Event
 import com.example.helpingminds.Model.Reminder
 import com.example.helpingminds.R
+import com.example.helpingminds.Utility.CustomClass.UserInfo
 import com.example.helpingminds.Utility.Retrofit.RestApiService
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class SetReminderFragment(evnt: Event) : Fragment() {
-    private lateinit var dateText:EditText
+    private lateinit var dateText: EditText
     private lateinit var timeText: TextView
-    private lateinit var noteText:EditText
+    private lateinit var noteText: EditText
     private lateinit var repeatSpinner: Spinner
     private lateinit var prioritySpinner: Spinner
     private lateinit var confirmButton: Button
@@ -37,26 +38,26 @@ class SetReminderFragment(evnt: Event) : Fragment() {
     private lateinit var updateButton: Button
 
     private val event = evnt
-    private lateinit var reminder:Reminder
+    private lateinit var reminder: Reminder
 
     private val repetitions = arrayOf("Every Hour", "Never")
-    private val priorities = arrayOf("Low","Medium","High")
+    private val priorities = arrayOf("Low", "Medium", "High")
 
     private lateinit var mProgressBar: ProgressDialog
     private lateinit var reminderBar: ProgressDialog
 
     private lateinit var builder: AlertDialog.Builder
 
-    private var selectedRepetition:Int = 0
-    private var selectedPriority:Int = 0
+    private var selectedRepetition: Int = 0
+    private var selectedPriority: Int = 0
 
     private var apiService = RestApiService()
 
     private lateinit var cb: AfterLoginActivityCallback
-    private lateinit var uuid:UUID
+    private lateinit var uuid: UUID
 
-    private var hourToSet:Int = 0
-    private var minuteToSet:Int = 0
+    private var hourToSet: Int = 0
+    private var minuteToSet: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +73,7 @@ class SetReminderFragment(evnt: Event) : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(activity is AfterLoginActivityCallback){
+        if (activity is AfterLoginActivityCallback) {
             cb = activity as AfterLoginActivityCallback
         }
 
@@ -86,25 +87,26 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         mProgressBar.dismiss()
     }
 
-    private fun initAlert(){
+    private fun initAlert() {
         builder = AlertDialog.Builder(context)
         builder.setCancelable(true)
 
         builder.setPositiveButton(
             "OK",
-            DialogInterface.OnClickListener { dialog, id -> run {
+            DialogInterface.OnClickListener { dialog, id ->
+                run {
                     dialog.cancel()
                     activity?.finish()
                 }
             })
 
-        builder.setOnDismissListener(){
+        builder.setOnDismissListener() {
             activity?.finish()
         }
 
     }
 
-    private fun setTimeText(reminder: Reminder){
+    private fun setTimeText(reminder: Reminder) {
         var time = reminder.reminderDate.split("T")[1]
         var hourOfDay = time.split(":")[0].toInt()
         var minute = time.split(":")[1].toInt()
@@ -144,19 +146,19 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         timeText.text = formattedTime
     }
 
-    private fun disableView(){
+    private fun disableView() {
         timeText.isEnabled = false
         repeatSpinner.isEnabled = false
         prioritySpinner.isEnabled = false
     }
 
-    private fun enableView(){
+    private fun enableView() {
         timeText.isEnabled = true
         repeatSpinner.isEnabled = true
         prioritySpinner.isEnabled = true
     }
 
-    private fun completedReminderVisibility(){
+    private fun completedReminderVisibility() {
         cancelButton.visibility = View.GONE
         updateButton.visibility = View.GONE
         editButton.visibility = View.GONE
@@ -164,7 +166,7 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         completedButton.visibility = View.VISIBLE
     }
 
-    private fun unCompletedReminderVisibility(){
+    private fun unCompletedReminderVisibility() {
         cancelButton.visibility = View.VISIBLE
         updateButton.visibility = View.GONE
         editButton.visibility = View.VISIBLE
@@ -172,7 +174,7 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         completedButton.visibility = View.GONE
     }
 
-    private fun newReminderVisibility(){
+    private fun newReminderVisibility() {
         cancelButton.visibility = View.GONE
         updateButton.visibility = View.GONE
         editButton.visibility = View.GONE
@@ -180,29 +182,32 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         completedButton.visibility = View.GONE
     }
 
-    private fun checkIfReminderIsSet(){
-        apiService.checkIfReminderExist(event.eventId){
-            if(it != null && it.isNotEmpty()){
-                reminder = it[0]
-                if(reminder.completed == true){
-                    completedReminderVisibility()
+    private fun checkIfReminderIsSet() {
+        apiService.checkIfReminderExist(event.eventId) {
+            if (it != null && it.isNotEmpty()) {
+                var filteredReminder = it!!.filter { x -> x.userId == UserInfo.userId }
+                if (filteredReminder.isNotEmpty()) {
+                    reminder = it[0]
+                    if (reminder.completed == true) {
+                        completedReminderVisibility()
+                    } else {
+                        unCompletedReminderVisibility()
+                    }
+                    it.first().priority?.let { it1 -> prioritySpinner.setSelection(it1) }
+                    it.first().repeat?.let { it1 -> repeatSpinner.setSelection(it1) }
+                    setTimeText(reminder)
+                    disableView()
+                } else {
+                    newReminderVisibility()
                 }
-                else{
-                    unCompletedReminderVisibility()
-                }
-                prioritySpinner.setSelection(it.first().priority)
-                repeatSpinner.setSelection(it.first().repeat)
-                setTimeText(reminder)
-                disableView()
-            }
-            else{
+            } else {
                 newReminderVisibility()
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun loadValues(){
+    private fun loadValues() {
         //val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         dateText.text = Editable.Factory.getInstance().newEditable(event.eventDate.split("T")[0])
         //timeText.text = Editable.Factory.getInstance().newEditable("00:00am")
@@ -247,11 +252,13 @@ class SetReminderFragment(evnt: Event) : Fragment() {
             timeText.text = formattedTime
         }
 
-    private fun initListener(){
-        repeatSpinner.onItemSelectedListener = object:
+    private fun initListener() {
+        repeatSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
                 selectedRepetition = position
             }
 
@@ -262,8 +269,10 @@ class SetReminderFragment(evnt: Event) : Fragment() {
 
         prioritySpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
                 selectedPriority = position
             }
 
@@ -287,17 +296,26 @@ class SetReminderFragment(evnt: Event) : Fragment() {
             var day = dateText.text.split("-")[2].toInt()
             var hour = hourToSet
             var minute = minuteToSet
-            calendar.set(year, month, day, hour, minute, 0)
+            calendar.set(year, month - 1, day, hour, minute, 0)
 
             var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 
             reminder.reminderDate = sdf.format(calendar.time)
             reminder.priority = selectedPriority
             reminder.repeat = selectedRepetition
+
+            cb.clearNotification(UUID.fromString(reminder.uuid))
+            uuid = cb.setNotification(
+                event.eventDate,
+                hourToSet,
+                minuteToSet,
+                reminder.reminderId!!
+            )
+            reminder.uuid = uuid.toString()
             apiService.UpdateReminder(reminder.reminderId!!, reminder) {
-                if(it == true){
+                if (it == true) {
                     builder.setMessage("Saved successfully")
-                }else{
+                } else {
                     builder.setMessage("Reminder could not be saved")
                 }
                 var alert = builder.create()
@@ -316,30 +334,34 @@ class SetReminderFragment(evnt: Event) : Fragment() {
             var day = dateText.text.split("-")[2].toInt()
             var hour = hourToSet
             var minute = minuteToSet
-            calendar.set(year, month, day, hour, minute, 0)
+            calendar.set(year, month - 1, day, hour, minute, 0)
 
             var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 
             var reminderNew = Reminder(null, event.eventId, selectedPriority, selectedRepetition)
+            reminderNew.userId = UserInfo.userId
             reminderNew.reminderDate = sdf.format(calendar.time)
-            apiService.saveReminder(reminderNew){
-                if(it != null){
+            apiService.saveReminder(reminderNew) {
+                if (it != null) {
                     var savedReminder = it
-                    uuid = cb.setNotification(event.eventDate, hourToSet, minuteToSet, savedReminder.reminderId!!)
+                    uuid = cb.setNotification(
+                        event.eventDate,
+                        hourToSet,
+                        minuteToSet,
+                        savedReminder.reminderId!!
+                    )
                     savedReminder.uuid = uuid.toString()
-                    apiService.UpdateReminder(savedReminder.reminderId!!, savedReminder){
-                        if(it != null){
+                    apiService.UpdateReminder(savedReminder.reminderId!!, savedReminder) {
+                        if (it != null) {
 
-                        }
-                        else{
+                        } else {
                             cb.clearNotification(uuid)
                         }
                     }
                     builder.setMessage("Saved successfully")
                     var alert = builder.create()
                     alert.show()
-                }
-                else{
+                } else {
                     builder.setMessage("Reminder could not be saved")
                 }
 
@@ -348,28 +370,28 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         }
 
         cancelButton.setOnClickListener {
-            reminder.uuid?.let{
-                uuid -> cb.clearNotification(UUID.fromString(uuid))
+            reminder.uuid?.let { uuid ->
+                cb.clearNotification(UUID.fromString(uuid))
             }
             reminder.reminderId?.let { it1 ->
-                apiService.DeleteReminder(it1){
-                    if(it != null && it){
+                apiService.DeleteReminder(it1) {
+                    if (it != null && it) {
                         //delete successful
                         builder.setMessage("Deleted Sucessfully")
                         var alert = builder.create()
                         alert.show()
-                    }
-                    else{
+                    } else {
                         //delete unsucessful
                     }
                 }
             }
         }
 
-        timeText.setOnClickListener{
+        timeText.setOnClickListener {
             val timePicker: TimePickerDialog = TimePickerDialog(
                 // pass the Context
                 activity,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 // listener to perform task
                 // when time is picked
                 timePickerDialogListener,
@@ -384,17 +406,20 @@ class SetReminderFragment(evnt: Event) : Fragment() {
                 false
             )
 
+            timePicker.window?.setBackgroundDrawableResource(android.R.color.transparent);
+
             // then after building the timepicker
             // dialog show the dialog to user
             timePicker.show()
         }
     }
 
-    private fun initSpinner(){
+    private fun initSpinner() {
         val adapter = activity?.let {
             ArrayAdapter(
                 it,
-                android.R.layout.simple_spinner_item, repetitions)
+                android.R.layout.simple_spinner_item, repetitions
+            )
         }
         repeatSpinner.adapter = adapter
 
@@ -402,13 +427,14 @@ class SetReminderFragment(evnt: Event) : Fragment() {
         val priorityAdapter = activity?.let {
             ArrayAdapter(
                 it,
-                android.R.layout.simple_spinner_item, priorities)
+                android.R.layout.simple_spinner_item, priorities
+            )
         }
         prioritySpinner.adapter = priorityAdapter
 
     }
 
-    private fun init(){
+    private fun init() {
         dateText = setReminderView.findViewById(R.id.dateEditText)
         timeText = setReminderView.findViewById(R.id.timeEditText)
         noteText = setReminderView.findViewById(R.id.noteEditText)
