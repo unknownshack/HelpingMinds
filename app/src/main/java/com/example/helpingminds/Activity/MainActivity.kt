@@ -10,16 +10,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.helpingminds.*
-import com.example.helpingminds.Callback.CallBackListener
+import com.example.helpingminds.Callback.MainActivityCallback
 import com.example.helpingminds.Fragment.*
 import com.example.helpingminds.Model.User
 import com.example.helpingminds.Utility.CustomClass.Phone
 import com.example.helpingminds.Utility.CustomClass.UserInfo
 import com.example.helpingminds.Utility.Retrofit.RestApiService
 import com.example.helpingminds.Utility.Session.SessionManagement
+import kotlinx.coroutines.awaitAll
 
 
-class MainActivity : AppCompatActivity(), CallBackListener {
+class MainActivity : AppCompatActivity(), MainActivityCallback {
     val manager = supportFragmentManager
     private lateinit var sessionManagement: SessionManagement
     private lateinit var progress: ProgressDialog
@@ -85,6 +86,7 @@ class MainActivity : AppCompatActivity(), CallBackListener {
         progress.show()
         val loginApiService = RestApiService()
         var user = User(-1, userName, password)
+        user.email = userName
 
         loginApiService.checkLogin(user) {
             if (it != null && it != -1) {
@@ -106,6 +108,7 @@ class MainActivity : AppCompatActivity(), CallBackListener {
         progress.show()
         val loginApiService = RestApiService()
         val user = User(-1, username, password)
+        user.email = username
 
         loginApiService.checkAdminLogin(user) {
             if (it != true) {
@@ -131,7 +134,7 @@ class MainActivity : AppCompatActivity(), CallBackListener {
 
     override fun createUser() {
         val transaction = manager.beginTransaction()
-        transaction.replace(R.id.body, AdminPageFragment())
+        transaction.replace(R.id.body, CreateUserFragment())
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -145,7 +148,7 @@ class MainActivity : AppCompatActivity(), CallBackListener {
 
     private fun MoveToMenu() {
         val transaction = manager.beginTransaction()
-        transaction.replace(R.id.body, ActionFragment())
+        transaction.replace(R.id.body, AfterAdminLoginFragment())
         transaction.addToBackStack(null)
         transaction.commit()
     }

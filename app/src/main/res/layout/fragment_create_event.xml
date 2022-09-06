@@ -40,6 +40,7 @@
             android:layout_width="@dimen/rdp_250"
             android:layout_height="@dimen/rdp_36"
             android:layout_marginStart="@dimen/rdp_13"
+            android:singleLine="true"
             android:background="@drawable/edittext"
             android:paddingStart="@dimen/rdp_16" />
 
