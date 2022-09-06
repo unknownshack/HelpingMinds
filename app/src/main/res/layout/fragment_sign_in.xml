@@ -29,15 +29,24 @@
         android:paddingStart="@dimen/rdp_20"
         />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_height="@dimen/rdp_40"
-        android:layout_width="@dimen/rdp_280"
-        android:background="@drawable/edittext"
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/rdp_20"
-        android:hint="Password"
-        android:paddingStart="@dimen/rdp_20"
-        />
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_height="@dimen/rdp_40"
+            android:layout_width="@dimen/rdp_280"
+            android:background="@drawable/edittext"
+            android:layout_marginTop="@dimen/rdp_20"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/rdp_20"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/login"

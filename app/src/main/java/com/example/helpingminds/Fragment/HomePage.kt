@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.helpingminds.Callback.CallBackListener
+import com.example.helpingminds.Callback.MainActivityCallback
 import com.example.helpingminds.R
 
 class HomePage : Fragment() {
     private lateinit var fragmentView: View;
-    private lateinit var cb: CallBackListener;
+    private lateinit var cb: MainActivityCallback;
 
     private lateinit var signInButton: Button;
     private lateinit var adminLoginButton: Button;
@@ -28,8 +28,8 @@ class HomePage : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if(activity is CallBackListener){
-            cb = activity as CallBackListener;
+        if(activity is MainActivityCallback){
+            cb = activity as MainActivityCallback;
         }
 
         signInButton.setOnClickListener{

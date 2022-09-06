@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import com.example.helpingminds.Callback.CallBackListener
+import com.example.helpingminds.Callback.MainActivityCallback
 import com.example.helpingminds.R
 
-class ActionFragment : Fragment() {
+class AfterAdminLoginFragment : Fragment() {
     private lateinit var actionFragment:View
     private lateinit var createUser: LinearLayout
     private lateinit var createEvent: LinearLayout
-    private lateinit var cb: CallBackListener
+    private lateinit var cb: MainActivityCallback
     private lateinit var createEventButton: Button
     private lateinit var createUserButton: Button
 
@@ -23,7 +23,7 @@ class ActionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        actionFragment = inflater.inflate(R.layout.fragment_action, container, false)
+        actionFragment = inflater.inflate(R.layout.fragment_after_admin_login, container, false)
         return actionFragment
     }
 
@@ -34,8 +34,8 @@ class ActionFragment : Fragment() {
         createEventButton = actionFragment.findViewById(R.id.createEventButton)
         createUserButton = actionFragment.findViewById(R.id.createUserButton)
 
-        if(activity is CallBackListener){
-            cb = activity as CallBackListener
+        if(activity is MainActivityCallback){
+            cb = activity as MainActivityCallback
         }
 
         createUser.setOnClickListener{
