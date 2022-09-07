@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="helpdesk@helpinghands.org.au"
+            android:text="helpdesk@helpingminds.org.au"
             android:paddingStart="@dimen/rdp_30"
             android:paddingEnd="@dimen/rdp_10"
             android:textSize="@dimen/rdp_20"
@@ -78,7 +78,7 @@
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go to helping minds location"
+            android:text="Go to HelpingMinds location"
             android:paddingStart="@dimen/rdp_30"
             android:paddingEnd="@dimen/rdp_10"
             android:layout_marginTop="@dimen/rdp_40"

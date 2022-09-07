@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helpingminds.Activity.AfterLoginActivity
 import com.example.helpingminds.Model.Event
+import com.example.helpingminds.Utility.CustomClass.CustomDate
 import com.example.helpingminds.Utility.Retrofit.RestApiService
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,6 +28,8 @@ class CalendarActivity : AppCompatActivity() {
     private lateinit var mprogress: ProgressDialog
     private lateinit var menuButton: ImageView
     private lateinit var noEventView: LinearLayout
+
+    private lateinit var eventMonth: TextView
 
     private lateinit var calendarView: CalendarView
     private lateinit var today: Calendar
@@ -41,6 +44,7 @@ class CalendarActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.listView)
         menuButton = findViewById(R.id.expanded_menu)
         calendarView = findViewById(R.id.calendarView)
+        eventMonth = findViewById(R.id.eventTitleId)
 
         noEventView = findViewById(R.id.no_event)
         InitProgressDialog()
@@ -51,6 +55,7 @@ class CalendarActivity : AppCompatActivity() {
         calendarView.setOnDateChangeListener { view, year, month, day ->
             var dateString = "${month + 1}-$day-$year"
 
+            eventMonth.setText("Event for "+CustomDate.getMonthFullName(month))
             val sdf = SimpleDateFormat("MM-dd-yyyy")
             val date: Date = sdf.parse(dateString)
             selectedDate.time = date
@@ -65,6 +70,9 @@ class CalendarActivity : AppCompatActivity() {
         var todayString = "${today.get(Calendar.MONTH) + 1}-${today.get(Calendar.DAY_OF_MONTH)}-${
             today.get(Calendar.YEAR)
         }"
+
+
+        eventMonth.setText("Event for "+CustomDate.getMonthFullName(today.get(Calendar.MONTH)))
         GetEvents(todayString)
 
 
