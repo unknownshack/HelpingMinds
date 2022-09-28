@@ -341,6 +341,12 @@ class SetReminderFragment(evnt: Event) : Fragment() {
             var reminderNew = Reminder(null, event.eventId, selectedPriority, selectedRepetition)
             reminderNew.userId = UserInfo.userId
             reminderNew.reminderDate = sdf.format(calendar.time)
+<<<<<<< HEAD
+=======
+            reminderNew.purpose = event.eventName
+            reminderNew.nonEventNote = event.eventName
+            reminderNew.isonoroff = true
+>>>>>>> f0a729018fe08d70d2a39ad3db3f79e93a22940d
             apiService.saveReminder(reminderNew) {
                 if (it != null) {
                     var savedReminder = it
