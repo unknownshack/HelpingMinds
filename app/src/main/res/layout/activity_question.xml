@@ -58,7 +58,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="If you have any questions about accessing the at IT contact please app, "
+            android:text="If you have any questions about accessing the app, please contact IT at "
             android:paddingStart="@dimen/rdp_30"
             android:paddingTop="@dimen/rdp_30"
             android:paddingEnd="@dimen/rdp_10"
@@ -68,11 +68,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
-            android:text="helpdesk@helpinghands.org.au"
-=======
             android:text="helpdesk@helpingminds.org.au"
->>>>>>> f0a729018fe08d70d2a39ad3db3f79e93a22940d
             android:paddingStart="@dimen/rdp_30"
             android:paddingEnd="@dimen/rdp_10"
             android:textSize="@dimen/rdp_20"
@@ -82,11 +78,7 @@
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
-            android:text="Go to helping minds location"
-=======
             android:text="Go to HelpingMinds location"
->>>>>>> f0a729018fe08d70d2a39ad3db3f79e93a22940d
             android:paddingStart="@dimen/rdp_30"
             android:paddingEnd="@dimen/rdp_10"
             android:layout_marginTop="@dimen/rdp_40"

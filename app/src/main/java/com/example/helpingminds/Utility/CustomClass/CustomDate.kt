@@ -94,8 +94,6 @@ class CustomDate {
             }
             return result
         }
-<<<<<<< HEAD
-=======
 
         fun getMonthFullName(month: Int): String {
             val result = when (month) {
@@ -117,6 +115,6 @@ class CustomDate {
             }
             return result
         }
->>>>>>> f0a729018fe08d70d2a39ad3db3f79e93a22940d
+
     }
 }
